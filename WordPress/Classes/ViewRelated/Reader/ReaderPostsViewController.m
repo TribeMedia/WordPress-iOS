@@ -888,18 +888,11 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 
-<<<<<<< HEAD
 	ReaderPost *post = [self.resultsController.fetchedObjects objectAtIndex:indexPath.row];
 	UIViewController *detailController = [ReaderPostDetailViewController detailControllerWithPost:post];
     [self.navigationController pushViewController:detailController animated:YES];
 
-=======
-    // Pass the image forward
-    ReaderPost *post = [self.resultsController.fetchedObjects objectAtIndex:indexPath.row];
-    self.detailController = [ReaderPostDetailViewController detailControllerWithPost:post];
-    [self.navigationController pushViewController:self.detailController animated:YES];
-    
->>>>>>> ca343acc8599964357485aafeb72d9eb218fd51b
+
     [WPAnalytics track:WPAnalyticsStatReaderOpenedArticle];
 }
 
