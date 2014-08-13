@@ -71,20 +71,20 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (instancetype)init
 {
-	self = [super init];
-	if (self) {
+    self = [super init];
+    if (self) {
         _hasMoreContent = YES;
         _infiniteScrollEnabled = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didChangeAccount:) name:WPAccountDefaultWordPressComAccountChangedNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(readerTopicDidChange:) name:ReaderTopicDidChangeNotification object:nil];
-	}
-	return self;
+    }
+    return self;
 }
 
 - (void)viewDidLoad
 {
-	[super viewDidLoad];
+    [super viewDidLoad];
 
     self.cachedRowHeights = [NSMutableDictionary dictionary];
 
@@ -111,7 +111,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     self.featuredImageSource.delegate = self;
 
     
-	// Topics button
+    // Topics button
     UIBarButtonItem *button = nil;
     CustomHighlightButton *topicsButton = [CustomHighlightButton buttonWithType:UIButtonTypeCustom];
     topicsButton.tintColor = [UIColor colorWithWhite:1.0 alpha:0.5];
@@ -140,12 +140,12 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
+    [super viewWillAppear:animated];
 
     [self updateTitle];
 
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     if (self.noResultsView && self.animatedBox) {
         [self.animatedBox prepareAnimation:NO];
@@ -183,8 +183,8 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     [self.inlineComposeView endEditing:YES];
     [super viewWillDisappear:animated];
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
@@ -287,37 +287,37 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     }
 
     UIView *view = self.view.superview;
-	CGRect frame = view.frame;
-	CGRect startFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
-	CGRect endFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-	
-	// Figure out the difference between the bottom of this view, and the top of the keyboard.
-	// This should account for any toolbars.
-	CGPoint point = [view.window convertPoint:startFrame.origin toView:view];
-	self.keyboardOffset = point.y - (frame.origin.y + frame.size.height);
-	
-	// if we're upside down, we need to adjust the origin.
-	if (endFrame.origin.x == 0 && endFrame.origin.y == 0) {
-		endFrame.origin.y = endFrame.origin.x += MIN(endFrame.size.height, endFrame.size.width);
-	}
-	
-	point = [view.window convertPoint:endFrame.origin toView:view];
+    CGRect frame = view.frame;
+    CGRect startFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    // Figure out the difference between the bottom of this view, and the top of the keyboard.
+    // This should account for any toolbars.
+    CGPoint point = [view.window convertPoint:startFrame.origin toView:view];
+    self.keyboardOffset = point.y - (frame.origin.y + frame.size.height);
+    
+    // if we're upside down, we need to adjust the origin.
+    if (endFrame.origin.x == 0 && endFrame.origin.y == 0) {
+        endFrame.origin.y = endFrame.origin.x += MIN(endFrame.size.height, endFrame.size.width);
+    }
+    
+    point = [view.window convertPoint:endFrame.origin toView:view];
     CGSize tabBarSize = [self tabBarSize];
-	frame.size.height = point.y + tabBarSize.height;
-	
-	[UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-		view.frame = frame;
-	} completion:^(BOOL finished) {
-		// BUG: When dismissing a modal view, and the keyboard is showing again, the animation can get clobbered in some cases.
-		// When this happens the view is set to the dimensions of its wrapper view, hiding content that should be visible
-		// above the keyboard.
-		// For now use a fallback animation.
-		if (!CGRectEqualToRect(view.frame, frame)) {
-			[UIView animateWithDuration:0.3 animations:^{
-				view.frame = frame;
-			}];
-		}
-	}];
+    frame.size.height = point.y + tabBarSize.height;
+    
+    [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        view.frame = frame;
+    } completion:^(BOOL finished) {
+        // BUG: When dismissing a modal view, and the keyboard is showing again, the animation can get clobbered in some cases.
+        // When this happens the view is set to the dimensions of its wrapper view, hiding content that should be visible
+        // above the keyboard.
+        // For now use a fallback animation.
+        if (!CGRectEqualToRect(view.frame, frame)) {
+            [UIView animateWithDuration:0.3 animations:^{
+                view.frame = frame;
+            }];
+        }
+    }];
 }
 
 - (void)handleKeyboardWillHide:(NSNotification *)notification
@@ -327,12 +327,12 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     }
 
     UIView *view = self.view.superview;
-	CGRect frame = view.frame;
-	CGRect keyFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-	
-	CGPoint point = [view.window convertPoint:keyFrame.origin toView:view];
-	frame.size.height = point.y - (frame.origin.y + self.keyboardOffset);
-	view.frame = frame;
+    CGRect frame = view.frame;
+    CGRect keyFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    CGPoint point = [view.window convertPoint:keyFrame.origin toView:view];
+    frame.size.height = point.y - (frame.origin.y + self.keyboardOffset);
+    view.frame = frame;
 }
 
 
@@ -366,11 +366,11 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
             [WPAnalytics track:WPAnalyticsStatReaderLikedArticle];
         }
     } failure:^(NSError *error) {
-		DDLogError(@"Error Liking Post : %@", [error localizedDescription]);
-		[postView updateActionButtons];
+        DDLogError(@"Error Liking Post : %@", [error localizedDescription]);
+        [postView updateActionButtons];
     }];
 
-	[postView updateActionButtons];
+    [postView updateActionButtons];
 }
 
 - (void)contentView:(UIView *)contentView didReceiveAttributionLinkAction:(id)sender
@@ -395,8 +395,8 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     [service toggleFollowingForPost:post success:^{
         //noop
     } failure:^(NSError *error) {
-		DDLogError(@"Error Following Blog : %@", [error localizedDescription]);
-		[followButton setSelected:post.isFollowing];
+        DDLogError(@"Error Following Blog : %@", [error localizedDescription]);
+        [followButton setSelected:post.isFollowing];
     }];
 }
 
@@ -528,7 +528,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     if (self.isSyncing) {
         return @"";
     }
-	return NSLocalizedString(@"Tap the tag icon to browse posts from popular sites.", nil);
+    return NSLocalizedString(@"Tap the tag icon to browse posts from popular sites.", nil);
 }
 
 - (UIView *)noResultsAccessoryView
@@ -541,7 +541,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (NSString *)entityName
 {
-	return @"ReaderPost";
+    return @"ReaderPost";
 }
 
 - (NSDate *)lastSyncDate
@@ -555,13 +555,13 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"(topic == %@)", self.currentTopic];
     NSSortDescriptor *sortDescriptorDate = [NSSortDescriptor sortDescriptorWithKey:@"sortDate" ascending:NO];
     fetchRequest.sortDescriptors = @[sortDescriptorDate];
-	fetchRequest.fetchBatchSize = 20;
-	return fetchRequest;
+    fetchRequest.fetchBatchSize = 20;
+    return fetchRequest;
 }
 
 - (NSString *)sectionNameKeyPath
 {
-	return nil;
+    return nil;
 }
 
 - (Class)cellClass
@@ -571,7 +571,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (void)configureCell:(UITableViewCell *)aCell atIndexPath:(NSIndexPath *)indexPath
 {
-	if (!aCell) {
+    if (!aCell) {
         return;
     }
 
@@ -755,11 +755,11 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 - (void)loadMoreWithSuccess:(void (^)())success failure:(void (^)(NSError *error))failure
 {
     DDLogMethod();
-	if ([self.resultsController.fetchedObjects count] == 0) {
-		return;
+    if ([self.resultsController.fetchedObjects count] == 0) {
+        return;
     }
 
-	if (self.loadingMore) {
+    if (self.loadingMore) {
         return;
     }
 
@@ -770,9 +770,9 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
         return;
     }
 
-	self.loadingMore = YES;
+    self.loadingMore = YES;
 
-	ReaderPost *post = self.resultsController.fetchedObjects.lastObject;
+    ReaderPost *post = self.resultsController.fetchedObjects.lastObject;
     NSManagedObjectContext *context = [[ContextManager sharedInstance] newDerivedContext];
 
     ReaderPostService *service = [[ReaderPostService alloc] initWithManagedObjectContext:context];
@@ -796,7 +796,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (UITableViewRowAnimation)tableViewRowAnimation
 {
-	return UITableViewRowAnimationNone;
+    return UITableViewRowAnimationNone;
 }
 
 - (void)onSyncSuccess:(BOOL)hasMore
@@ -819,8 +819,8 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     }
 
     if (self.tableView.isEditing) {
-		cell.accessoryType = UITableViewCellAccessoryNone;
-	} else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    } else {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
@@ -888,10 +888,18 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
 
+<<<<<<< HEAD
 	ReaderPost *post = [self.resultsController.fetchedObjects objectAtIndex:indexPath.row];
 	UIViewController *detailController = [ReaderPostDetailViewController detailControllerWithPost:post];
     [self.navigationController pushViewController:detailController animated:YES];
 
+=======
+    // Pass the image forward
+    ReaderPost *post = [self.resultsController.fetchedObjects objectAtIndex:indexPath.row];
+    self.detailController = [ReaderPostDetailViewController detailControllerWithPost:post];
+    [self.navigationController pushViewController:self.detailController animated:YES];
+    
+>>>>>>> ca343acc8599964357485aafeb72d9eb218fd51b
     [WPAnalytics track:WPAnalyticsStatReaderOpenedArticle];
 }
 
@@ -936,12 +944,13 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 {
     [self updateTitle];
 
-	self.loadingMore = NO;
-	self.hasMoreContent = YES;
+    self.loadingMore = NO;
+    self.hasMoreContent = YES;
 
-	[self.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
-	[self resetResultsController];
-	[self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
+    [self.cachedRowHeights removeAllObjects];
+    [self resetResultsController];
+    [self.tableView reloadData];
     [self syncItems];
 
     [WPAnalytics track:WPAnalyticsStatReaderLoadedTag withProperties:[self tagPropertyForStats]];
@@ -973,7 +982,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
 - (BOOL)isCurrentTagFreshlyPressed
 {
-    return [self.currentTopic.title rangeOfString:@"freshly-pressed"].location != NSNotFound;
+    return [self.currentTopic.path rangeOfString:@"freshly-pressed"].location != NSNotFound;
 }
 
 - (NSDictionary *)tagPropertyForStats
