@@ -9,15 +9,15 @@
 
 @interface WPNoResultsView : UIView
 
-@property (nonatomic, strong) NSString                      *titleText;
-@property (nonatomic, strong) NSString                      *messageText;
-@property (nonatomic, strong) NSString                      *buttonTitle;
-@property (nonatomic, strong) UIView                        *accessoryView;
-@property (nonatomic,   weak) id<WPNoResultsViewDelegate>   delegate;
+@property (nonatomic, weak) id<WPNoResultsViewDelegate> delegate;
 
-+ (instancetype)noResultsViewWithTitle:(NSString *)titleText message:(NSString *)messageText accessoryView:(UIView *)accessoryView buttonTitle:(NSString *)buttonTitle;
++ (WPNoResultsView *)noResultsViewWithTitle:(NSString *)titleText message:(NSString *)messageText accessoryView:(UIView *)accessoryView buttonTitle:(NSString *)buttonTitle;
 
+- (void)setupWithTitle:(NSString *)titleText message:(NSString *)messageText accessoryView:(UIView *)accessoryView buttonTitle:(NSString *)buttonTitle;
 - (void)showInView:(UIView *)view;
 - (void)centerInSuperview;
+
+- (void)setTitleText:(NSString *)title;
+- (void)setMessageText:(NSString *)message;
 
 @end

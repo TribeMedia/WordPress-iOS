@@ -110,10 +110,6 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     self.featuredImageSource = [[WPTableImageSource alloc] initWithMaxSize:CGSizeMake(maxWidth, maxHeight)];
     self.featuredImageSource.delegate = self;
 
-<<<<<<< HEAD
-    
-=======
->>>>>>> upstream/develop
     // Topics button
     UIBarButtonItem *button = nil;
     CustomHighlightButton *topicsButton = [CustomHighlightButton buttonWithType:UIButtonTypeCustom];
@@ -149,11 +145,7 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardDidShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleKeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/develop
     if (self.noResultsView && self.animatedBox) {
         [self.animatedBox prepareAnimation:NO];
     }
@@ -296,37 +288,22 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     CGRect frame = view.frame;
     CGRect startFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect endFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/develop
     // Figure out the difference between the bottom of this view, and the top of the keyboard.
     // This should account for any toolbars.
     CGPoint point = [view.window convertPoint:startFrame.origin toView:view];
     self.keyboardOffset = point.y - (frame.origin.y + frame.size.height);
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/develop
     // if we're upside down, we need to adjust the origin.
     if (endFrame.origin.x == 0 && endFrame.origin.y == 0) {
         endFrame.origin.y = endFrame.origin.x += MIN(endFrame.size.height, endFrame.size.width);
     }
-<<<<<<< HEAD
-    
-    point = [view.window convertPoint:endFrame.origin toView:view];
-    CGSize tabBarSize = [self tabBarSize];
-    frame.size.height = point.y + tabBarSize.height;
-    
-=======
+
 
     point = [view.window convertPoint:endFrame.origin toView:view];
     CGSize tabBarSize = [self tabBarSize];
     frame.size.height = point.y + tabBarSize.height;
 
->>>>>>> upstream/develop
     [UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         view.frame = frame;
     } completion:^(BOOL finished) {
@@ -351,14 +328,6 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     UIView *view = self.view.superview;
     CGRect frame = view.frame;
     CGRect keyFrame = [[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-<<<<<<< HEAD
-    
-    CGPoint point = [view.window convertPoint:keyFrame.origin toView:view];
-    frame.size.height = point.y - (frame.origin.y + self.keyboardOffset);
-    view.frame = frame;
-}
-=======
->>>>>>> upstream/develop
 
     CGPoint point = [view.window convertPoint:keyFrame.origin toView:view];
     frame.size.height = point.y - (frame.origin.y + self.keyboardOffset);
@@ -513,8 +482,8 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     // Refresh the NoResultsView Properties
     self.noResultsView.titleText        = self.noResultsTitleText;
     self.noResultsView.messageText      = self.noResultsMessageText;
-    self.noResultsView.accessoryView    = self.noResultsAccessoryView;
-    self.noResultsView.buttonTitle      = self.noResultsButtonText;
+    //self.noResultsView.accessoryView    = self.noResultsAccessoryView;
+    //self.noResultsView.buttonTitle      = self.noResultsButtonText;
 
     if (!self.resultsController || (self.resultsController.fetchedObjects.count > 0)) {
         return;
@@ -965,10 +934,6 @@ NSString * const RPVCDisplayedNativeFriendFinder = @"DisplayedNativeFriendFinder
     self.hasMoreContent = YES;
 
     [self.tableView setContentOffset:CGPointMake(0, 0) animated:NO];
-<<<<<<< HEAD
-    [self.cachedRowHeights removeAllObjects];
-=======
->>>>>>> upstream/develop
     [self resetResultsController];
     [self.tableView reloadData];
     [self syncItems];

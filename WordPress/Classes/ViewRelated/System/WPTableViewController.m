@@ -541,8 +541,8 @@ NSString *const DefaultCellIdentifier = @"DefaultCellIdentifier";
         // Refresh the NoResultsView Properties
         self.noResultsView.titleText        = self.noResultsTitleText;
         self.noResultsView.messageText      = self.noResultsMessageText;
-        self.noResultsView.accessoryView    = self.noResultsAccessoryView;
-        self.noResultsView.buttonTitle      = self.noResultsButtonText;
+        //self.noResultsView.accessoryView    = self.noResultsAccessoryView;
+        //self.noResultsView.buttonTitle      = self.noResultsButtonText;
 
         // Show no results view if the fetched results controller has no objects and syncing is not happening.
         if (![self.noResultsView isDescendantOfView:self.tableView]) {
